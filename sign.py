@@ -65,13 +65,15 @@ def show_sample_images():
         else:
             st.write(f"Sample image for {label} not found.")
 # Streamlit interface
+
+show_sample_images()  
 st.title("Sign Language Classifier")
 st.write("Upload an image of a sign language gesture to classify")
 
 # Upload image
 uploaded_image = st.file_uploader("Choose an image...", type="jpg")
 
-show_sample_images()  
+
 
 if uploaded_image is not None:
     image = Image.open(uploaded_image)
