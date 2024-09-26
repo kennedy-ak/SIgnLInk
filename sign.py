@@ -37,12 +37,41 @@ def speak_text(text):
     st.audio("output.mp3")
 
 
+## Function to display sample images in two columns
+def show_sample_images():
+    st.write("Example Sign Language Gestures:")
+    
+    sample_images = {
+        "A": "images/A.jpeg",
+        "B": "images/B.jpeg",
+        "C": "images/C.jpeg",
+        "1": "images/1.jpeg",
+        "2": "images/2.jpeg"
+    }
+    
+    # Create two columns
+    col1, col2 = st.columns(2)
+    
+    # Loop over the sample images and display them in two columns
+    for index, (label, img_path) in enumerate(sample_images.items()):
+        if os.path.exists(img_path):
+            # Display in column 1 for even indices and in column 2 for odd indices
+            if index % 2 == 0:
+                with col1:
+                    st.image(img_path, caption=f"Sign for {label}", width=150)
+            else:
+                with col2:
+                    st.image(img_path, caption=f"Sign for {label}", width=150)
+        else:
+            st.write(f"Sample image for {label} not found.")
 # Streamlit interface
 st.title("Sign Language Classifier")
 st.write("Upload an image of a sign language gesture to classify")
 
 # Upload image
 uploaded_image = st.file_uploader("Choose an image...", type="jpg")
+
+show_sample_images()  
 
 if uploaded_image is not None:
     image = Image.open(uploaded_image)
@@ -63,7 +92,7 @@ if uploaded_image is not None:
         speak_text(f"The Predicted Character is {predicted_label}")
 
 # Text input to type a letter or number
-st.write("Or, type a letter or number to see its corresponding image:")
+st.write("Or, type a letter or number to see its corresponding Sign image:")
 input_character = st.text_input("Enter a letter or number:")
 
 # Check if the input is valid
