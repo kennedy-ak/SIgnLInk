@@ -1,0 +1,6 @@
+
+tensorflow
+streamlit
+Pillow
+pyttsx3
+numpy
