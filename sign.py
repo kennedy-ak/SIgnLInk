@@ -57,10 +57,10 @@ if uploaded_image is not None:
 #         engine = pyttsx3.init()
 #         engine.say(f"The predicted character is {predicted_label}")
 #         engine.runAndWait()
-if st.button('Classify'):
-    predicted_label = make_prediction(image)
-    st.write(f"Predicted Sign Language Character: {predicted_label}")
-    speak_text(f"The Predicted Character is {predicted_label}")
+    if st.button('Classify'):
+        predicted_label = make_prediction(image)
+        st.write(f"Predicted Sign Language Character: {predicted_label}")
+        speak_text(f"The Predicted Character is {predicted_label}")
 
 # Text input to type a letter or number
 st.write("Or, type a letter or number to see its corresponding image:")
