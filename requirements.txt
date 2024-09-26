@@ -4,3 +4,4 @@ streamlit
 Pillow
 pyttsx3
 numpy
+gTTS

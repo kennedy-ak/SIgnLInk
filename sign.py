@@ -4,7 +4,7 @@ from PIL import Image
 import numpy as np
 import pyttsx3
 import os
-
+from gtts import gTTS
 # Load the model
 model = tf.keras.models.load_model('sign_language_model.h5')
 
@@ -30,6 +30,13 @@ def make_prediction(image):
     predicted_label = class_names[predicted_class]  # Map the index to the label
     return predicted_label
 
+
+def speak_text(text):
+    tts = gTTS(text)
+    tts.save("output.mp3")
+    st.audio("output.mp3")
+
+
 # Streamlit interface
 st.title("Sign Language Classifier")
 st.write("Upload an image of a sign language gesture to classify")
@@ -42,14 +49,18 @@ if uploaded_image is not None:
     st.image(image, caption='Uploaded Image', use_column_width=True)
 
     # Make prediction
-    if st.button('Classify'):
-        predicted_label = make_prediction(image)
-        st.write(f"Predicted Sign Language Character: {predicted_label}")
+#     if st.button('Classify'):
+#         predicted_label = make_prediction(image)
+#         st.write(f"Predicted Sign Language Character: {predicted_label}")
 
-        # Optional: Text-to-Speech output
-        engine = pyttsx3.init()
-        engine.say(f"The predicted character is {predicted_label}")
-        engine.runAndWait()
+#         # Optional: Text-to-Speech output
+#         engine = pyttsx3.init()
+#         engine.say(f"The predicted character is {predicted_label}")
+#         engine.runAndWait()
+if st.button('Classify'):
+    predicted_label = make_prediction(image)
+    st.write(f"Predicted Sign Language Character: {predicted_label}")
+    speak_text(f"The Predicted Character is {predicted_label}")
 
 # Text input to type a letter or number
 st.write("Or, type a letter or number to see its corresponding image:")
